@@ -18,10 +18,10 @@ public class SetBoolBehaviour : StateMachineBehaviour
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
-    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        animator.SetBool(boolName, valueEnter);
-    }
+    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    animator.SetBool(boolName, valueEnter);
+    //}
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

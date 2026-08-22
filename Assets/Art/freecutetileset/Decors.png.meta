@@ -110,15 +110,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: download_0
+      name: Tree
       rect:
         serializedVersion: 2
-        x: 0
+        x: 17
         y: 0
-        width: 225
-        height: 225
+        width: 73
+        height: 100
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -127,6 +127,50 @@ TextureImporter:
       bones: []
       spriteID: 237bd813089f59130800000000000000
       internalID: 3573036208370857778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bush
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 0
+        width: 35
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc2a0eedc1062394ca454029c14d5897
+      internalID: -832467419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ruined Wall
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 0
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd19457245bd9e64993a18959458d6c4
+      internalID: -1704328892
       vertices: []
       indices: 
       edges: []
@@ -145,7 +189,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      download_0: 3573036208370857778
+      Bush: -832467419
+      Ruined Wall: -1704328892
+      Tree: 3573036208370857778
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

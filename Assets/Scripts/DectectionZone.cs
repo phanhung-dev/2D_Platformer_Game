@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,12 +13,19 @@ public class DectectionZone : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        detectedColliders.Add(collision);
+        //if (collision.CompareTag("Player")) không cần so sánh bởi vì đã cài đặt tương tác chỉ với player
+        //{
+            detectedColliders.Add(collision);
+        //}
+
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        detectedColliders.Remove(collision);
+        //if (collision.CompareTag("Player"))
+        //{
+            detectedColliders.Remove(collision);
+        //}
     }
 
 

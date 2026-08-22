@@ -8,7 +8,7 @@ public class ParallaxEffect : MonoBehaviour
     Vector2 startingPosition;
     float startingZ;
 
-    //Neu lay cam thi khung hinh bi dut lag nen quyet dinh lay player//
+    //Neu lay cam thi khung hinh bi dut lag nen quyet dinh lay player
     Vector2 camMoveSinceStart => (Vector2)cam.transform.position - startingPosition;
 
     //Vector2 followTargetMoveSinceStart => (Vector2)followTarget.transform.position - startingPosition;
@@ -18,14 +18,15 @@ public class ParallaxEffect : MonoBehaviour
     float clippingPlane => cam.transform.position.z + (zDistanceFromTarget < 0 ? cam.nearClipPlane : cam.farClipPlane);
 
     float parallaxFactor => Mathf.Abs(zDistanceFromTarget / clippingPlane);
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
+        if (cam == null) cam = Camera.main;
+
         startingPosition = transform.position;
         startingZ = transform.position.z;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         Vector2 newPosition = startingPosition + camMoveSinceStart * parallaxFactor;

@@ -19,7 +19,7 @@ TagManager:
   - PayerHitbox
   - EnemyHitbox
   - PatrolBoundary
-  - 
+  - SkillHitBox
   - 
   - 
   - 
@@ -45,6 +45,18 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 910430399
+    locked: 0
+  - name: Decors
+    uniqueID: 2327670799
+    locked: 0
+  - name: Characters
+    uniqueID: 2654228303
+    locked: 0
+  - name: Effects
+    uniqueID: 1881010311
+    locked: 0
+  - name: Foreground
+    uniqueID: 133068555
     locked: 0
   - name: Default
     uniqueID: 0

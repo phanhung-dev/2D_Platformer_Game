@@ -1,15 +1,19 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.Jobs;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float runSpeed = 8f;
-    [SerializeField] private float airSpeed;
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float airSpeed = 6f;
     Vector2 moveInput;
 
     public float CurrentMoveSpeed
@@ -22,29 +26,26 @@ public class PlayerController : MonoBehaviour
                 {
                     if (touchingDirections.IsGrounded)
                     {
-                        if (IsRunning)
-                        {
-                            airSpeed = 6f;
-                            return runSpeed;
-                        }
-                        else
-                        {
-                            airSpeed = 4f;
-                            return walkSpeed;
-                        }
+                        return moveSpeed;
                     }
-                    else return airSpeed;
+                    else
+                    {
+                        return airSpeed;
+                    }
                 }
-                else
-                {
-                    airSpeed = 2f;
-                    return 0;
-                }
+                else return 0;
             }
             else return 0;
         }
     }
 
+    [Header("Slide")]
+    [SerializeField] private float slideSpeed = 12f;      
+    [SerializeField] private float slideDuration = 0.35f; 
+    [SerializeField] private float slideCooldown = 2.0f;  
+    private float nextSlideTime = 0f;
+    private bool isSliding = false;
+    public bool CanSlide => CanMove && IsAlive && touchingDirections.IsGrounded && !isSliding && Time.time >= nextSlideTime && !IsHit;
 
     [SerializeField] private bool _isMoving = false;
     public bool IsMoving 
@@ -56,18 +57,6 @@ public class PlayerController : MonoBehaviour
             animator.SetBool(AnimationStrings.isMoving, value);
         }
     }
-
-    [SerializeField] private bool _isRunning = false;
-    public bool IsRunning
-    {
-        get => _isRunning;
-        private set
-        {
-            _isRunning = value;
-            animator.SetBool(AnimationStrings.isRunning, value);
-        }
-    }
-
 
     [SerializeField] private bool _isFacingRight = true;
     public bool IsFacingRight 
@@ -104,6 +93,30 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] List<Collider2D> attackHitBox = new List<Collider2D>();
 
+    [Header("Skill Projectile")]
+    [SerializeField] private GameObject slashPrefab;
+    [SerializeField] private Transform slashSpawnPoint;
+
+    [Header("Skill UI")]
+    [SerializeField] private Image cooldownSlash;
+    [SerializeField] private float slashCoolDown = 5f;
+    private float nextSlashTime = 0f;
+
+    private bool _isHit = false;
+    public bool IsHit
+    {
+        get => _isHit;
+        private set
+        {
+            _isHit = value;
+            animator.SetBool(AnimationStrings.isHit, value);
+        }
+    }
+
+    private bool isPointerOverUI = false;
+
+    [Header("Skills && Mana")]
+    [SerializeField] private int slashManaCost = 20;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -111,19 +124,34 @@ public class PlayerController : MonoBehaviour
         touchingDirections = GetComponent<TouchingDirections>();
     }
 
+    private void Update()
+    {
+        UpdateCooldownUI();
+
+        if (EventSystem.current != null)
+        {
+            isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
+        }
+    }
+
     private void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+        if (!IsHit && !isSliding)
+        {
+            rb.linearVelocity = new Vector2(moveInput.x * CurrentMoveSpeed, rb.linearVelocity.y);
+        }
+
 
         animator.SetFloat(AnimationStrings.yVelocity, rb.linearVelocity.y);
     }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
 
         if (IsAlive)
         {
-        IsMoving = moveInput != Vector2.zero;
+            IsMoving = moveInput != Vector2.zero;
 
         SetFacingDirection(moveInput);
 
@@ -143,20 +171,35 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnRun(InputAction.CallbackContext context) 
-    { 
-        if (context.started)
+    {
+        if (context.started && CanSlide)
         {
-            IsRunning = true;
+            StartCoroutine(PerformSlide());
         }
-        else if (context.canceled)
+    }
+
+    private IEnumerator PerformSlide()
+    {
+        isSliding = true;
+        nextSlideTime = Time.time + slideCooldown;
+
+        animator.SetTrigger(AnimationStrings.slideTrigger);
+
+        float slideDirection = IsFacingRight ? 1f : -1f;
+
+        float timer = 0f;
+        while (timer < slideDuration)
         {
-            IsRunning = false;
+            rb.linearVelocity = new Vector2(slideDirection * slideSpeed, rb.linearVelocity.y);
+            timer += Time.deltaTime;
+            yield return null;
         }
+        isSliding = false;
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && CanMove && IsAlive)
+        if (context.started && CanMove && IsAlive && !isSliding)
         {
             if (touchingDirections.IsGrounded)
             {
@@ -172,13 +215,16 @@ public class PlayerController : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpluse);
             }
 
-            //Air Attack
-            //animator.SetBool(AnimationStrings.hasAirAttack, false);
         }
     }
 
     public void OnAttack(InputAction.CallbackContext contect)
     {
+        if (isPointerOverUI || isSliding || !IsAlive)
+        {
+            return;
+        }
+
         if (contect.started)
         {
             animator.SetTrigger(AnimationStrings.attackTrigger);
@@ -200,5 +246,74 @@ public class PlayerController : MonoBehaviour
         {
             attackHitBox[index].enabled = false;
         }
+    }
+
+    public void OnSlash(InputAction.CallbackContext context)
+    {
+        if (context.started && !isSliding && CanMove)
+        {
+            if (Time.time >= nextSlashTime)
+            {
+                Mana playerMana = GetComponent <Mana>();
+                if (playerMana != null && !playerMana.UseMana(slashManaCost))
+                {
+                    return;
+                }
+
+
+                animator.SetTrigger(AnimationStrings.skill01);
+                nextSlashTime = Time.time + slashCoolDown;
+            }
+        }
+    }
+
+    public void FireSlash()
+    {
+        if (slashPrefab != null && slashSpawnPoint != null)
+        {
+            GameObject slash = Instantiate(slashPrefab, slashSpawnPoint.position, slashSpawnPoint.rotation);
+
+            SlashProjectile projectileScript = slash.GetComponent<SlashProjectile>();
+            if (projectileScript != null)
+            {
+                float facingDirection = IsFacingRight ? 1f : -1f;
+
+                projectileScript.Initialize(facingDirection);
+            }
+        }
+    }
+
+
+    private void UpdateCooldownUI()
+    {
+        if (cooldownSlash != null)
+        {
+            if (Time.time < nextSlashTime)
+            {
+                float timeRemaining = nextSlashTime - Time.time;
+
+                cooldownSlash.fillAmount = timeRemaining/slashCoolDown;
+            }
+            else
+            {
+                cooldownSlash.fillAmount = 0f;
+            }
+        }
+    }
+
+    public void OnHit()
+    {
+        StartCoroutine(HitRoutine());
+    }
+
+    private IEnumerator HitRoutine()
+    {
+        IsHit = true;
+
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(0.4f);
+
+        IsHit = false;
     }
 }

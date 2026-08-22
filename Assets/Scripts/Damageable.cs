@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
@@ -45,9 +46,17 @@ public class Damageable : MonoBehaviour
     private float timeSinceHit = 0f;
     private float invicibilityTime = 0.25f;
 
+    public UnityEvent damageHit;
+
+    public UnityEvent<int, int> healthChanged;
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    public void Start()
+    {
+        healthChanged?.Invoke(Health, MaxHealth);
     }
 
     private void Update()
@@ -63,12 +72,58 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    public void Hit(int damage)
+    public void Hit(int damage) //Tru mau khi bi danh
     {
         if (IsAlive && !isInvincible)
         {
             Health -= damage;
             isInvincible = true;
+
+            damageHit?.Invoke();
         }
+
+        healthChanged?.Invoke(Health, MaxHealth);
+    }
+
+    public void Hit(int damage, Vector2 knockBack) //Hat tung ra dang sau
+    {
+        if (IsAlive && !isInvincible)
+        {
+            Health -= damage;
+            isInvincible = true;
+
+            damageHit?.Invoke();
+
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = knockBack;
+            }
+        }
+
+        healthChanged?.Invoke(Health, MaxHealth);
+    }
+
+    public void Heal(int healRestore)
+    {
+        if (IsAlive && Health < MaxHealth)
+        {
+            Health += healRestore;
+
+            if (Health > MaxHealth)
+            {
+                Health = MaxHealth;
+            }
+        }
+
+        healthChanged?.Invoke(Health, MaxHealth);
+    }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        MaxHealth += amount;
+        Health += amount; 
+
+        healthChanged?.Invoke(Health, MaxHealth);
     }
 }

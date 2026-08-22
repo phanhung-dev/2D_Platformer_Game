@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(DectectionZone))]
@@ -68,12 +69,25 @@ public class Knight : MonoBehaviour
     {
         get => animator.GetBool(AnimationStrings.isIdle);
     }
+
+    private bool _isHit = false;
+    public bool IsHit
+    {
+        get => _isHit;
+        private set
+        {
+            _isHit = value;
+            animator.SetBool(AnimationStrings.isHit, value);
+        }
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
     }
+
+    [SerializeField] List<Collider2D> attackHitBox = new List<Collider2D>();
 
     private void Update()
     {
@@ -87,17 +101,19 @@ public class Knight : MonoBehaviour
             StartCoroutine(TurnAroundRountine());
         }
 
-        if (canMove)
+        if (canMove && !IsHit)
         {
             rb.linearVelocity = new Vector2(walkDirectionVector.x * walkSpeed, rb.linearVelocity.y);
             //Debug.Log("Dang di chuyen");
 
         }
-        else
+        else if (!IsHit)
         { 
             rb.linearVelocity = new Vector2(Mathf.Lerp(rb.linearVelocity.x, 0, walkStopRate), rb.linearVelocity.y);
             //Debug.Log("Dang di cham lai");
         }
+
+       
     }
 
     private void FlipDirection()
@@ -131,5 +147,38 @@ public class Knight : MonoBehaviour
         animator.SetBool(AnimationStrings.isIdle, false);
 
         isTunning = false;
+    }
+
+    public void EnableAttackHitBox(int index)
+    {
+        if (index >= 0 && index < attackHitBox.Count)
+        {
+            attackHitBox[index].enabled = true;
+        }
+
+    }
+
+    public void DisableAttackHitBox(int index)
+    {
+        if (index >= 0 && index < attackHitBox.Count)
+        {
+            attackHitBox[index].enabled = false;
+        }
+    }
+
+    public void OnHit()
+    {
+        StartCoroutine(HitRoutine());
+    }
+
+    private IEnumerator HitRoutine()
+    {
+        IsHit = true;
+
+        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+
+        yield return new WaitForSeconds(0.4f);
+
+        IsHit = false;
     }
 }

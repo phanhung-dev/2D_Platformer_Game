@@ -18,5 +18,8 @@ internal class AnimationStrings
     internal static string hasTarget = "hasTarget";
     internal static string isAlive = "isAlive";
     internal static string isIdle = "isIdle";
+    internal static string skill01 = "skill_1";
+    internal static string isHit = "isHit";
+    internal static string slideTrigger = "slide";
 }
 
