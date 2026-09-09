@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6383500177063776577}
   - component: {fileID: 7332361969054315553}
   - component: {fileID: 7602419082073796360}
+  - component: {fileID: 2448034470365047941}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -88,9 +89,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1640738993
+  m_SortingLayer: -3
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c380f41848abdee46a38c6a66864febc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: ad44f6802caf48d4fbee94daffd42af1, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -266,7 +267,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7376576540598548639}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnSkill
+        m_MethodName: OnSlash
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -295,11 +296,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947305f89f69d6048b8cedf48a542c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  walkSpeed: 5
-  runSpeed: 8
-  airSpeed: 0
+  moveSpeed: 8
+  airSpeed: 6
+  slideSpeed: 14
+  slideDuration: 0.3
+  slideCooldown: 2
   _isMoving: 0
-  _isRunning: 0
   _isFacingRight: 1
   attackHitBox:
   - {fileID: 2310281635320226002}
@@ -308,7 +310,8 @@ MonoBehaviour:
   slashPrefab: {fileID: 1705262314198125819, guid: 71f897dc959b3124c9bc79ef67fe3bbd, type: 3}
   slashSpawnPoint: {fileID: 8649032358408129924}
   cooldownSlash: {fileID: 0}
-  slashCoolDown: 5
+  slashCoolDown: 2
+  slashManaCost: 20
 --- !u!95 &2040317094365470808
 Animator:
   serializedVersion: 7
@@ -428,6 +431,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  healthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2448034470365047941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264427888589910454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b15e084c139f96247b4c5f76bed55c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mana
+  _maxMana: 100
+  _currentMana: 100
+  autoRegen: 0
+  regenRate: 5
+  manaChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &433355268744748282
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,8 +560,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   damage: 10
   hasKnockback: 0
-  knockbackForce: {x: 5, y: 3}
-  parentTransform: {fileID: 0}
+  knockbackForce: {x: 2, y: 2}
+  parentTransform: {fileID: 8403986652861306354}
 --- !u!1 &4387666858437642602
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,8 +674,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   damage: 10
   hasKnockback: 0
-  knockbackForce: {x: 5, y: 3}
-  parentTransform: {fileID: 0}
+  knockbackForce: {x: 1, y: 1}
+  parentTransform: {fileID: 2708143461152396579}
 --- !u!1 &7203464032107193766
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +790,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   damage: 10
   hasKnockback: 1
-  knockbackForce: {x: 5, y: 3}
+  knockbackForce: {x: 4, y: 2}
   parentTransform: {fileID: 7356081968253658462}
 --- !u!1 &8387255108306974618
 GameObject:
@@ -777,7 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8649032358408129924}
   - component: {fileID: 3931901215321812442}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SlashSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

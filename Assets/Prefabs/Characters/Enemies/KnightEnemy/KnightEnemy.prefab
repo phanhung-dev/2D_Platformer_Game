@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31dbbc70cb601764b84e180a1ef2a18b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageOnTouch
-  damage: 10
+  damage: 25
   hasKnockback: 1
   knockbackForce: {x: 3, y: 2}
   parentTransform: {fileID: 4113953731903482217}

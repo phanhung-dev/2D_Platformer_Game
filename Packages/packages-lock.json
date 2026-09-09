@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.cammin.ldtkunity": {
+      "version": "file:C:/Users/HP OMEN 16/Downloads/LDtkToUnity-6.12.3/LDtkToUnity-6.12.3/Assets/LDtkUnity",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.2d.sprite": "1.0.0",
+        "com.unity.modules.physics2d": "1.0.0",
+        "com.unity.modules.tilemap": "1.0.0"
+      }
+    },
     "com.unity.2d.animation": {
       "version": "13.0.4",
       "depth": 0,

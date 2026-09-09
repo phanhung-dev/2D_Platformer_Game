@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.cammin.ldtkunity": "file:C:/Users/HP OMEN 16/Downloads/LDtkToUnity-6.12.3/LDtkToUnity-6.12.3/Assets/LDtkUnity",
     "com.unity.2d.animation": "13.0.4",
     "com.unity.2d.aseprite": "3.0.1",
     "com.unity.2d.psdimporter": "12.0.1",
