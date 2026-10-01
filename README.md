@@ -79,3 +79,26 @@ A playable Windows build is available in the **Releases** section.
 5. Run `2D Platformer Game.exe`.
 
 > ⚠️ **Note:** This is an unfinished alpha prototype. Some features may be incomplete and bugs may occur.
+
+## 🚧 Project Status
+
+This project is currently **on hold** and is no longer under active development.
+
+The game is still an **unfinished prototype**, but the current build is playable and includes the core mechanics implemented during development.
+
+Some planned features, such as the **Quest Board system, Boss battles, additional levels, rewards, and more enemy types**, were not completed.
+
+This project is kept here as a learning project and portfolio piece.
+
+## 📚 What I Learned
+
+This project helped me practice:
+
+- Unity 2D game development
+- C# gameplay programming
+- Player movement and combat systems
+- Animation and 2D physics
+- Health, mana, inventory, and item systems
+- UI and audio implementation
+- Building a Windows game
+- Using Git and GitHub to manage and publish a project
