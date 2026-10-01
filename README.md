@@ -65,3 +65,17 @@ Accept a quest, overcome the challenges, defeat the Boss, and claim your well-de
 | **Cinemachine 3** | Dynamic player tracking and camera behaviors |
 | **Tilemap & SpriteShape** | Level design and environmental terrain |
 | **Aseprite & PSD Importer** | Seamless import of pixel art and layered assets |
+
+## 📥 Download
+
+A playable Windows build is available in the **Releases** section.
+
+### 🪟 Windows
+
+1. Go to the [Latest Release](../../releases/latest).
+2. Download `2D-Platformer-Game-v0.1.0-Windows.zip`.
+3. Extract the ZIP file.
+4. Open the extracted folder.
+5. Run `2D Platformer Game.exe`.
+
+> ⚠️ **Note:** This is an unfinished alpha prototype. Some features may be incomplete and bugs may occur.
