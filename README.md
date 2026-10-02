@@ -88,7 +88,7 @@ The game is still an **unfinished prototype**, but the current build is playable
 
 Some planned features, such as the **Quest Board system, Boss battles, additional levels, rewards, and more enemy types**, were not completed.
 
-This project is kept here as a learning project and portfolio piece.
+This project is kept here as a learning project.
 
 ## 📚 What I Learned
 
