@@ -102,3 +102,54 @@ This project helped me practice:
 - UI and audio implementation
 - Building a Windows game
 - Using Git and GitHub to manage and publish a project
+
+## 🎨 Assets & Resources
+
+This project uses various free assets and resources created by talented artists and developers.  
+All credits belong to their respective creators.
+
+### 🖼️ Visual & Game Assets
+
+| Asset | Author | Source |
+|---|---|---|
+| **Animated Pixel Adventurer** – Player Character | rvros | [itch.io](https://rvros.itch.io/animated-pixel-hero) |
+| **Fantasy Knight Free Pixelart Animated Character** – Knight Character | aamatniekss | [itch.io](https://aamatniekss.itch.io/fantasy-knight-free-pixelart-animated-character) |
+| **Monsters Creatures Fantasy** – Flying Eye, Goblin, Mushroom, Skeleton | LuizMelo | [itch.io](https://luizmelo.itch.io/monsters-creatures-fantasy) |
+| **Free Pixel Food** – Apple, Chicken, Beer, etc. | Henry Software | [itch.io](https://henrysoftware.itch.io/pixel-food) |
+| **Kyrise's Free 16x16 RPG Icon Pack** – 350+ RPG Icons | Kyrise | [itch.io](https://kyrise.itch.io/kyrises-free-16x16-rpg-icon-pack) |
+
+### 🔊 Sound Effects
+
+| Asset | Author | Source |
+|---|---|---|
+| **RPG Essentials SFX - Free!** – Battle, UI/Menu, Movement, Magic, Buffs/Heals | Leohpaz | [itch.io](https://leohpaz.itch.io/rpg-essentials-sfx-free) |
+| **Sword Slash and Swing** | David Dumais Audio | [Pixabay](https://pixabay.com/users/daviddumaisaudio-41768500/) |
+| **Sword Slash with Metal Shield Impact** | David Dumais Audio | [Pixabay](https://pixabay.com/users/daviddumaisaudio-41768500/) |
+
+### 🔤 Font
+
+| Asset | Author | Source |
+|---|---|---|
+| **m5x7** – Pixel Font (CC0) | Daniel Linssen | [itch.io](https://managore.itch.io/m5x7) |
+
+### 🎵 Music
+
+| Asset | Author | Source |
+|---|---|---|
+| **Legendary JRPG Battle Music Pack FREE** – Background Music | YouFulca | [itch.io](https://youfulca.itch.io/legendary-jrpg-battle-music-pack) |
+
+> **Credits:** All assets, sound effects, fonts, and music belong to their respective creators. Please refer to each source page for the original license and usage terms.
+
+## 📚 Learning Resources & Credits
+
+### 🎓 Tutorials & Learning Resources
+
+- [Parallax Scrolling Tutorial - AdamCYounis](https://youtu.be/tMXgLBwtsvI?si=Ut4RVZeuz6G8gKbo) – Learned how to create a parallax background effect.
+- [2D Platformer Tutorial - Chris' Tutorials](https://youtu.be/QHJlXSkwmjo?si=cSlRSo3vlKbAAwx2) – Helped me understand the basics of building a 2D platformer in Unity.
+
+### 🛠️ Tools Used
+
+- **Unity** – Game development
+- **Visual Studio** – C# development
+- **Git & GitHub** – Version control and project hosting
+- **Aseprite** – Pixel art
